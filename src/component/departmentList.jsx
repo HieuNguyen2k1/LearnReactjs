@@ -10,14 +10,14 @@ function ListDepartment() {
     if (existingDepartment) {
       existingDepartment.count += 1;
     } else {
-      departments.push({ nameDepartment: staff.departmentId, count: 1 });
+      departments.push({ key: departments.length+1 , nameDepartment: staff.departmentId, count: 1 });
     }
   });
 
   const listDepartment = departments.map((dp) => {
     return (
      
-        <Department departmentInfo={dp}></Department>
+        <Department key={dp.key} departmentInfo={dp}></Department>
       
     );
   });

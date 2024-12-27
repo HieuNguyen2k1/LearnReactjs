@@ -4,8 +4,8 @@ import { STAFFS } from "../Shared/staffs";
 function SalaryPage(){
     
 const salarys = STAFFS.map((salary) => {
-    return <Salary salary={salary}></Salary>
-})
+    return <Salary key={salary.id} salary={salary}></Salary>
+});
 
 return <SalaryList salarys={salarys}></SalaryList>
 

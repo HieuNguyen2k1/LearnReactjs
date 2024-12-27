@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Staff({ staff, onClick }) {
   return (
     <div
-      className="staff  col-6 col-md-2  col-sm-4"
+      className="staff  col-6 col-lg-2  col-md-4"
       style={{ padding: "0" }}
       onClick={onClick}
     >
