@@ -1,6 +1,6 @@
 function Search(){
     return(
-        <div className="w-50">
+        <div className="search-staff col-sm-6 col-12">
             <div >
             <input className="mt-1" style={{width:"50%"}} type="text" placeholder="Tìm kiếm..." /> 
                 

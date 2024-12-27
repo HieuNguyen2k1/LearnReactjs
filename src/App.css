@@ -41,8 +41,23 @@
 @media(min-width: 576px){
   .img-logo {
     background-color:  #007bff  !important; }
+    .create-staff{
+      padding-left: 5%;
+    }
 }
 @media(max-width: 576px){
   .img-logo {
     background-color: white !important; }
+    .create-staff{
+      margin-left: 5%;
+    }
+    .create-staff  h2  span i{
+      margin-left: 40% !important;
+    }
+    .search-staff{
+      margin-left: 5%;
+    }
+    .search-staff button {
+      margin-left: 13% !important;
+    }
 }

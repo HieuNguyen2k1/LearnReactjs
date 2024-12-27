@@ -90,7 +90,7 @@ function App() {
             path="/"
             element={
               <>
-                <div className="d-flex mt-2">
+                <div className="row mt-2">
                   <CreateStaff onClick={CreateClicked} />
                   <SearchStaff />
                 </div>
