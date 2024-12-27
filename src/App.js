@@ -17,8 +17,17 @@ import { STAFFS } from "./Shared/staffs";
 function App() {
   let [clickedStaff, setClickedStaff] = useState();
   let [showModal, setShowModal] = useState(false);
+  let [search, setSearch] = useState("");
+  
+  //================ List Staff==================
 
-  const staffs = STAFFS.map((staff) => {
+  const filteredStaffs = search !== ""
+        ? STAFFS.filter((staff) =>
+            staff.name.toLowerCase().includes(search.toLowerCase())
+        )
+        : STAFFS;
+
+  const staffs = filteredStaffs.map((staff) => {
     const StaffClicked = () => {
       setClickedStaff(staff);
     };
@@ -36,7 +45,13 @@ function App() {
     setShowModal(false); 
   };
 
-   //================= close modal ====================
+   //================= search handle ====================
+const SearchHandled = (value) => {
+  setSearch(value);
+  
+};
+
+
 
   return (
     <div>
@@ -92,7 +107,7 @@ function App() {
               <>
                 <div className="row mt-2">
                   <CreateStaff onClick={CreateClicked} />
-                  <SearchStaff />
+                  <SearchStaff onClick={SearchHandled}/>
                 </div>
                 <StaffList staffs={staffs}></StaffList>{" "}
               </>
