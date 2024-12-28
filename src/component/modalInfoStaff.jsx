@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { STAFFS } from "../Shared/staffs";
 
-function ModalStaff({ onClose }) {
+function ModalStaff({ onClose , onAddStaff }) {
   let departments = [];
   STAFFS.forEach((staff) => {
     const existingDepartment = departments.find(
@@ -17,7 +17,7 @@ function ModalStaff({ onClose }) {
       });
     }
   });
-
+  
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -40,12 +40,28 @@ function ModalStaff({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    formData.id = STAFFS.length ;
+   
     formData.image =
       "https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824147_640.png";
-    STAFFS.push(formData);
-    onClose();
+    Create(formData);
+    console.log(JSON.stringify(formData));
+    console.log("==========");
+    onAddStaff();
   };
+
+  //==================== ADD DB ==========================
+  let Create = (obj)=>{
+    fetch("http://localhost:8080/staffs",{
+      method : 'post',
+      headers : {'Content-Type' : 'application/json'},
+      body : JSON.stringify(obj)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  };
+
+  //======================================================
 
   return (
     <div className="modal fade show" style={{ display: "block" }}>

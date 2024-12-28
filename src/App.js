@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 
@@ -12,20 +12,52 @@ import SearchStaff from "./Component/search";
 
 import SalaryPage from "./Pages/SalaryPage";
 import StaffPage from "./Pages/staffPage";
-import { STAFFS } from "./Shared/staffs";
 
 function App() {
+  let [STAFFS, setSTAFFS] = useState([]);
   let [clickedStaff, setClickedStaff] = useState();
   let [showModal, setShowModal] = useState(false);
   let [search, setSearch] = useState("");
-  
+
+  //===================== Api====================
+  const fetchStaffs = () => {
+    fetch("http://localhost:8080/staffs", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("fail");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSTAFFS(data);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  };
+
+  // Gọi hàm fetchStaffs khi component được mount
+  useEffect(() => {
+    fetchStaffs();
+  }, []);
+  // Hàm để xử lý khi thêm nhân viên thành công
+  const handleAddStaff = () => {
+    fetchStaffs(); // Tải lại danh sách nhân viên
+    handleCloseModal(); // Đóng modal
+  };
   //================ List Staff==================
 
-  const filteredStaffs = search !== ""
-        ? STAFFS.filter((staff) =>
-            staff.name.toLowerCase().includes(search.toLowerCase())
+  const filteredStaffs =
+    search !== ""
+      ? STAFFS.filter((staff) =>
+          staff.name.toLowerCase().includes(search.toLowerCase())
         )
-        : STAFFS;
+      : STAFFS;
 
   const staffs = filteredStaffs.map((staff) => {
     const StaffClicked = () => {
@@ -35,23 +67,21 @@ function App() {
     return <Staff key={staff.id} staff={staff} onClick={StaffClicked}></Staff>;
   });
 
-   //================= Modal ====================
+  //================= Modal ====================
 
   const CreateClicked = () => {
-    setShowModal(true); 
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); 
+    setShowModal(false);
   };
 
-   //================= search handle ====================
-const SearchHandled = (value) => {
-  setSearch(value);
-  
-};
-
-
+  //================= search handle ====================
+  const SearchHandled = (value) => {
+    setSearch(value);
+    console.log(value + "value");
+  };
 
   return (
     <div>
@@ -107,7 +137,7 @@ const SearchHandled = (value) => {
               <>
                 <div className="row mt-2">
                   <CreateStaff onClick={CreateClicked} />
-                  <SearchStaff onClick={SearchHandled}/>
+                  <SearchStaff onClick={SearchHandled} />
                 </div>
                 <StaffList staffs={staffs}></StaffList>{" "}
               </>
@@ -121,7 +151,7 @@ const SearchHandled = (value) => {
           <Route path="/salary" element={<SalaryPage />}></Route>
         </Routes>
       </div>
-      {showModal && <ModalStaff onClose={handleCloseModal} />} 
+      {showModal && <ModalStaff onClose={handleCloseModal} onAddStaff={handleAddStaff}  />}
     </div>
   );
 }

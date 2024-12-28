@@ -41,23 +41,48 @@
 @media(min-width: 576px){
   .img-logo {
     background-color:  #007bff  !important; }
+
+    .row{width: 100% !important;}
     .create-staff{
       padding-left: 5%;
+    }
+
+    .search-staff{
+   
+      padding: 0%;
+     
     }
 }
 @media(max-width: 576px){
   .img-logo {
     background-color: white !important; }
-    .create-staff{
-      margin-left: 5%;
+.navbar-collapse{
+  background-color: white !important;
+}
+.navbar-collapse ul li a {
+  color: black !important;
+}
+
+    .row{width: 100% !important;}
+
+    .create-staff  h2   i{
+     margin-left: 40% !important;
     }
-    .create-staff  h2  span i{
-      margin-left: 40% !important;
+    
+    .create-staff   {
+    margin-left: 9%;
+      width: 90%;
+      padding: 0px !important;
     }
     .search-staff{
-      margin-left: 5%;
+      margin-left: 9%;
+      padding: 0%;
+      width: 90%;
     }
     .search-staff button {
-      margin-left: 13% !important;
+      margin-left: 18% !important;
     }
+
+
+
 }

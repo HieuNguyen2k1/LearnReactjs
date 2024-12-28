@@ -8,7 +8,8 @@ function Search({ onClick }) {
   };
 
   const handleSearch = () => {
-    onClick(search); // Truyền giá trị searchTerm về App.js
+    onClick(search); 
+    console.log(search);
   };
 
   return (
@@ -24,8 +25,8 @@ function Search({ onClick }) {
         />
 
         <button className="btn btn-primary ms-3" onClick={handleSearch}>
-          {" "}
-          Search{" "}
+          
+          Search
         </button>
       </div>
     </div>

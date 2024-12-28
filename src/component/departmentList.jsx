@@ -1,30 +1,42 @@
-import { STAFFS } from "../Shared/staffs";
+import { useEffect, useState } from "react";
 import Department from "./department";
 function ListDepartment() {
-  let departments = [];
-  STAFFS.forEach((staff) => {
-    const existingDepartment = departments.find(
-      (department) => department.nameDepartment === staff.departmentId
-    );
+  
+  let [DEPARTMENTS,setDEPARTMENT] =  useState([]);
 
-    if (existingDepartment) {
-      existingDepartment.count += 1;
-    } else {
-      departments.push({ key: departments.length+1 , nameDepartment: staff.departmentId, count: 1 });
-    }
-  });
+  useEffect(()=>{
+    fetch("http://localhost:8080/departments",{
+      method : 'get',
+      headers : {'Content-Type' : 'application/json'}
 
-  const listDepartment = departments.map((dp) => {
+    })
+    .then(response => {
+      if(!response.ok){
+        throw new Error("fail department!");
+      }
+      return response.json();
+    })
+    .then(data =>{
+      setDEPARTMENT(data);
+    })
+    .catch(error=>{
+      console.log(error);
+    });
+    
+  },[]);
+
+
+  const listDepartment = DEPARTMENTS.map((dp) => {
     return (
      
-        <Department key={dp.key} departmentInfo={dp}></Department>
+        <Department key={dp.id} departmentInfo={dp}></Department>
       
     );
   });
 
   return (
     <div className="Department">
-      <div className="row" style={{ margin: "20px 20px" }}>
+      <div className="row" style={{ margin: "20px 0px" }}>
         {listDepartment}
       </div>
     </div>
