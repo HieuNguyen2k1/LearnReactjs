@@ -10,4 +10,4 @@ function Salary({salary}) {
     </div>
   </div>);
 }
-export default Salary;
+export default Salary; 

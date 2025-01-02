@@ -10,6 +10,6 @@ function Department({ departmentInfo }) {
       </div>
     </div>
   );
-}
+} 
 
 export default Department;

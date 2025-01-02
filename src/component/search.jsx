@@ -9,7 +9,6 @@ function Search({ onClick }) {
 
   const handleSearch = () => {
     onClick(search); 
-    console.log(search);
   };
 
   return (

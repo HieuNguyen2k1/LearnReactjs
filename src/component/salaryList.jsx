@@ -8,5 +8,5 @@ function SalaryList({salarys}){
     );
   };
   
-  export default SalaryList;
+  export default SalaryList; 
   

@@ -1,43 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Departments from "../APIContact/department_api";
 import Department from "./department";
+
 function ListDepartment() {
-  
-  let [DEPARTMENTS,setDEPARTMENT] =  useState([]);
+  const [departments, setDepartments] = useState([]);
 
-  useEffect(()=>{
-    fetch("http://localhost:8080/departments",{
-      method : 'get',
-      headers : {'Content-Type' : 'application/json'}
-
-    })
-    .then(response => {
-      if(!response.ok){
-        throw new Error("fail department!");
-      }
-      return response.json();
-    })
-    .then(data =>{
-      setDEPARTMENT(data);
-    })
-    .catch(error=>{
-      console.log(error);
-    });
-    
-  },[]);
-
-
-  const listDepartment = DEPARTMENTS.map((dp) => {
-    return (
-     
-        <Department key={dp.id} departmentInfo={dp}></Department>
-      
-    );
-  });
+  const handleDepartmentsData = (data) => {
+    setDepartments(data);
+  };
 
   return (
-    <div className="Department">
-      <div className="row" style={{ margin: "20px 0px" }}>
-        {listDepartment}
+    <div>
+      <Departments onFetchDepartments={handleDepartmentsData} /> 
+      <div className="Department">
+        <div className="row" style={{ margin: "20px 0px" }}>
+          {departments.map((dp) => (
+            <Department key={dp.id} departmentInfo={dp} />
+          ))}
+        </div>
       </div>
     </div>
   );

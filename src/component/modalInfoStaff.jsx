@@ -44,8 +44,6 @@ function ModalStaff({ onClose , onAddStaff }) {
     formData.image =
       "https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824147_640.png";
     Create(formData);
-    console.log(JSON.stringify(formData));
-    console.log("==========");
     onAddStaff();
   };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 
@@ -10,6 +10,7 @@ import CreateStaff from "./Component/createStaff";
 import ModalStaff from "./Component/modalInfoStaff";
 import SearchStaff from "./Component/search";
 
+import Staffs from "./APIContact/staffs_api";
 import SalaryPage from "./Pages/SalaryPage";
 import StaffPage from "./Pages/staffPage";
 
@@ -19,36 +20,40 @@ function App() {
   let [showModal, setShowModal] = useState(false);
   let [search, setSearch] = useState("");
 
-  //===================== Api====================
-  const fetchStaffs = () => {
-    fetch("http://localhost:8080/staffs", {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("fail");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setSTAFFS(data);
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
-  };
+  //========================== API 1==================
 
-  // Gọi hàm fetchStaffs khi component được mount
-  useEffect(() => {
-    fetchStaffs();
-  }, []);
-  // Hàm để xử lý khi thêm nhân viên thành công
+  const handleStaffsData = (data) => {
+    setSTAFFS(data); 
+  };
+  //===================== Api====================
+  // const fetchStaffs = () => {
+  //   fetch("http://localhost:8080/staffs", {
+  //     method: "get",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("fail");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setSTAFFS(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was a problem with the fetch operation:", error);
+  //     });
+  // };
+
+  // // Gọi hàm fetchStaffs khi component được mount
+  // useEffect(() => {
+  //   fetchStaffs();
+  // }, []);
+  // // Hàm để xử lý khi thêm nhân viên thành công
   const handleAddStaff = () => {
-    fetchStaffs(); // Tải lại danh sách nhân viên
-    handleCloseModal(); // Đóng modal
+    handleCloseModal(); 
   };
   //================ List Staff==================
 
@@ -80,7 +85,6 @@ function App() {
   //================= search handle ====================
   const SearchHandled = (value) => {
     setSearch(value);
-    console.log(value + "value");
   };
 
   return (
@@ -139,6 +143,7 @@ function App() {
                   <CreateStaff onClick={CreateClicked} />
                   <SearchStaff onClick={SearchHandled} />
                 </div>
+                <Staffs staffs={handleStaffsData} />
                 <StaffList staffs={staffs}></StaffList>{" "}
               </>
             }
