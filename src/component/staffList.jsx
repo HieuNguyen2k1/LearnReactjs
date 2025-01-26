@@ -1,4 +1,4 @@
-const StaffList = ({ staffs }) => {
+const StaffList = ( {staffs} ) => {
   return (
     <div className="App">
       <div className="row" style={{ margin: "20px 0px" }}>
